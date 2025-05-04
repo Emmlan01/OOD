@@ -3,12 +3,11 @@ package se.kth.iv1350.sem3.integration;
 import java.util.HashMap;
 import java.util.Map;
 
+import se.kth.iv1350.sem3.model.Sale;
+
 /*
  * Represent external inventory system.
  */
-
-import se.kth.iv1350.sem3.model.Sale;
-
 public class ExternalInventorySystem {
   private Map<Integer, ItemDTO> inventory = new HashMap<>();
 

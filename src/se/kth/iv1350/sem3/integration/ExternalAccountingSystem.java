@@ -1,10 +1,10 @@
 package se.kth.iv1350.sem3.integration;
-/*
- * Represents external accounting system.
- */
 
 import se.kth.iv1350.sem3.model.Sale;
 
+/*
+ * Represents external accounting system.
+ */
 public class ExternalAccountingSystem {
 
   /*
