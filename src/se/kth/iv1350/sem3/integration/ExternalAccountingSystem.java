@@ -1,0 +1,23 @@
+package se.kth.iv1350.sem3.integration;
+/*
+ * Represents external accounting system.
+ */
+
+import se.kth.iv1350.sem3.model.Sale;
+
+public class ExternalAccountingSystem {
+
+  /*
+   * Creates a new instance.
+   */
+  public ExternalAccountingSystem() {
+  }
+
+   /**
+    * Prints a confirmation massage.
+    * @param sale The sale to be completed.
+    */
+  public void updateSaleInformation(Sale sale) {
+    System.out.println("Sale information to external accounting system");
+  }
+}
