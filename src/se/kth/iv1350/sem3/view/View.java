@@ -10,8 +10,11 @@ import se.kth.iv1350.sem3.model.SaleDTO;
 
 public class View {
     private Controller contr;
+
     /**
-     * Creates a new instance, that uses the specified controller for all calls to other layers.
+     * Creates a new instance, that uses the specified controller for all calls to
+     * other layers.
+     * 
      * @param contr The controller to use for all calls to other layers.
      */
     public View(Controller contr) {
@@ -21,14 +24,15 @@ public class View {
     /*
      * Starts a new sale by calling the controller.
      */
-    public void startNewSale(){
+    public void startNewSale() {
         contr.startNewSale();
     }
 
     /**
      * Adds an item with the itemId and quantity to the current sale,
      * and prints sale information to the console.
-     * @param itemId The ID of the item to add.
+     * 
+     * @param itemId   The ID of the item to add.
      * @param quantity The number of quantity of the item.
      */
     public void addItem(Integer itemId, int quantity) {
@@ -48,17 +52,19 @@ public class View {
             System.out.println("End sale:");
             System.out.println("Total cost (incl VAT): " + String.format("%.2f", saleInfo.totalPrice()) + " SEK");
         }
-        if(saleInfo == null){
+        if (saleInfo == null) {
             System.out.println("Identifier is invalid");
         }
-    
+
     }
 
-     /**
+    /**
      * Calling the controller to possible apply discount for a specific customer.
-     * @param customerId The Id of the customer for who the discount can be applied to.
+     * 
+     * @param customerId The Id of the customer for who the discount can be applied
+     *                   to.
      */
-    public void applyDiscount(int customerId){
+    public void applyDiscount(int customerId) {
         contr.applyDiscount(customerId);
     }
 
@@ -71,6 +77,7 @@ public class View {
 
     /**
      * The payment for the sale and calling controller to print the receipt.
+     * 
      * @param amountPaid The amount paid by the customer.
      */
     public void pay(double amountPaid) {
@@ -78,4 +85,3 @@ public class View {
     }
 
 }
-   

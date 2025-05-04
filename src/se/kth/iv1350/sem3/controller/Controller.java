@@ -17,13 +17,13 @@ public class Controller {
   private Sale sale;
   private DiscountDB discountDB;
 
-
-   /**
-    * Creates a new instance of Controller.
-    * @param externalInventorySystem The reference to external inventory system.
-    * @param externalAccountingSystem The reference to external accounting system.
-    * @param discountDB The reference to discount database.
-    */
+  /**
+   * Creates a new instance of Controller.
+   * 
+   * @param externalInventorySystem  The reference to external inventory system.
+   * @param externalAccountingSystem The reference to external accounting system.
+   * @param discountDB               The reference to discount database.
+   */
   public Controller(ExternalInventorySystem externalInventorySystem, ExternalAccountingSystem externalAccountingSystem,
       DiscountDB discountDB) {
     this.externalInventorySystem = externalInventorySystem;
@@ -36,12 +36,13 @@ public class Controller {
    * during a sale.
    */
   public void startNewSale() {
-    this.sale = new Sale(); 
+    this.sale = new Sale();
   }
 
   /**
    * Adds an item to the sale if the item ID is valid.
-   * @param itemId The ID of the item to add.
+   * 
+   * @param itemId   The ID of the item to add.
    * @param quantity The quantity of the item to add.
    * @return A SaleDTO representing the updated sale.
    */
@@ -55,6 +56,7 @@ public class Controller {
 
   /**
    * Applies a discount to the current sale based on customerId.
+   * 
    * @param customerId The ID of the customer.
    */
   public void applyDiscount(int customerId) {
@@ -70,6 +72,7 @@ public class Controller {
 
   /**
    * Handles payment for the sale and prints the receipt
+   * 
    * @param amountPaid The amount paid by the customer
    */
   public void pay(double amountPaid) {
@@ -79,12 +82,12 @@ public class Controller {
     changeAmount.printReceipt();
   }
 
-
-/**
- * Gets the total price of the current sale after possible discounts.
- * @return The total price to be paid.
- */
+  /**
+   * Gets the total price of the current sale after possible discounts.
+   * 
+   * @return The total price to be paid.
+   */
   public double getTotalPrice() {
     return sale.getTotalPrice();
-}
+  }
 }

@@ -2,19 +2,19 @@ package se.kth.iv1350.sem3.model;
 
 import se.kth.iv1350.sem3.integration.ItemDTO;
 
-    /*
-     * Represents the item and the quantity of it, to caluclate
-     * subtotal and VAT for that specific item.
-     */
+/*
+ * Represents the item and the quantity of it, to caluclate
+ * subtotal and VAT for that specific item.
+ */
 public class SaleItems {
-    
+
     private ItemDTO item;
     private int quantity;
 
     /**
      * Create a new line item with specificed item and quantity.
      * 
-     * @param item The item.
+     * @param item     The item.
      * @param quantity The quantity of the item.
      */
     public SaleItems(ItemDTO item, int quantity) {
@@ -59,4 +59,3 @@ public class SaleItems {
         return quantity;
     }
 }
-

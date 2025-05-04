@@ -27,23 +27,23 @@ public class ControllerTests {
     }
 
     @Test
-    public void testAddItem(){
+    public void testAddItem() {
         controller.startNewSale();
         SaleDTO result = controller.addItem(1, 2);
         assertNotNull(result);
         assertEquals(1, result.lastAddedItem().itemId());
         assertEquals(200.0, result.totalPrice());
-        assertEquals(40, result.totalVAT()); 
+        assertEquals(40, result.totalVAT());
     }
 
     @Test
-    public void testInvalidAddItemReturnsNull(){
+    public void testInvalidAddItemReturnsNull() {
         SaleDTO result = controller.addItem(100, 2);
         assertNull(result);
     }
 
-    @Test 
-    public void testApplyDiscount(){
+    @Test
+    public void testApplyDiscount() {
         controller.startNewSale();
         controller.addItem(2, 2);
         controller.addItem(1, 2);
@@ -54,12 +54,12 @@ public class ControllerTests {
         controller.addItem(1, 2);
         controller.applyDiscount(1);
         double totalPriceWithDiscount = controller.getTotalPrice();
-   
+
         assertTrue(totalPriceWithDiscount < totalPriceWithoutDiscount, "Discount should reduce price");
     }
 
-    @Test 
-    public void testPay(){
+    @Test
+    public void testPay() {
         controller.startNewSale();
         controller.addItem(1, 1);
         controller.endSale();
@@ -68,4 +68,3 @@ public class ControllerTests {
         assertDoesNotThrow(() -> controller.pay(500), "payment should process");
     }
 }
-

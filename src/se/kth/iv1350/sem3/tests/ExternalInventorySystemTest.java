@@ -9,32 +9,33 @@ public class ExternalInventorySystemTest {
     private ExternalInventorySystem externalInventorySystem;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         externalInventorySystem = new ExternalInventorySystem();
     }
 
     @AfterEach
-    public void tearDown(){
+    public void tearDown() {
         externalInventorySystem = null;
     }
 
     @Test
-    public void testValidItemIdReturnsTrue(){
+    public void testValidItemIdReturnsTrue() {
         assertTrue(externalInventorySystem.validItemId(1));
     }
 
     @Test
-    public void testInvalidItemIdReturnsFalse(){
+    public void testInvalidItemIdReturnsFalse() {
         assertFalse(externalInventorySystem.validItemId(10));
     }
 
     @Test
-    public void testGetItemReturnsCorrectItem(){
+    public void testGetItemReturnsCorrectItem() {
         ItemDTO item = externalInventorySystem.getItem(1);
         assertNotNull(item);
         assertEquals(100, item.price());
         assertEquals(20, item.VAT());
         assertEquals(1, item.itemId());
-        assertEquals("Apple", item.itemDescription());;
+        assertEquals("Apple", item.itemDescription());
+        ;
     }
 }

@@ -25,7 +25,7 @@ public class Sale {
 
     /*
      * Creates a new instance, with current timestamp and emty item list.
-     */ 
+     */
     public Sale() {
         this.saleTime = LocalDateTime.now();
         this.totalPrice = 0.0;
@@ -37,13 +37,14 @@ public class Sale {
         this.itemDiscountAmount = 0.0;
     }
 
-     /**
-      * Adds an item with the specified quantity to the sale.
-      * If the item is already present, increses the quantity.
-      * @param item item The item to add.
-      * @param quantity The quantity of the item.
-      * @return SaleDTO with last added item and updated totals.
-      */
+    /**
+     * Adds an item with the specified quantity to the sale.
+     * If the item is already present, increses the quantity.
+     * 
+     * @param item     item The item to add.
+     * @param quantity The quantity of the item.
+     * @return SaleDTO with last added item and updated totals.
+     */
     public SaleDTO addItem(ItemDTO item, int quantity) {
         SaleItems existingLine = findLineItem(item.itemId());
         if (existingLine != null) {
@@ -51,7 +52,7 @@ public class Sale {
         } else {
             saleItems.add(new SaleItems(item, quantity));
         }
-    
+
         lastAddedItem = item;
         updateTotals();
         return new SaleDTO(lastAddedItem, totalPrice, totalVAT);
@@ -87,7 +88,7 @@ public class Sale {
     /*
      * Ends the current sale by updating the timestamp.
      */
-    public void endSale(){
+    public void endSale() {
         this.saleTime = LocalDateTime.now();
     }
 
@@ -96,7 +97,7 @@ public class Sale {
      * 
      * @return Returns the total price of the sale.
      */
-    public double getTotalPrice(){
+    public double getTotalPrice() {
         double discountedPrice = totalPrice * (1 - discountRate);
         return discountedPrice;
     }
@@ -114,7 +115,7 @@ public class Sale {
      * Applies all possible discounts from DiscountDB based on customerId.
      * 
      * @param customerId The ID of the customer.
-     * @param discountDB the discount database.  
+     * @param discountDB the discount database.
      */
     public void applyDiscount(int customerId, DiscountDB discountDB) {
         customerDiscountRate = discountDB.getDiscountForCustomer(customerId);
@@ -135,7 +136,7 @@ public class Sale {
     public double getCustomerDiscountRate() {
         return customerDiscountRate;
     }
-    
+
     /**
      * Returns the discount applied based on total cost.
      * 
@@ -144,7 +145,7 @@ public class Sale {
     public double getTotalCostDiscountRate() {
         return totalCostDiscountRate;
     }
-    
+
     /**
      * Returns the discount applied based on the items purchased.
      * 
@@ -153,7 +154,7 @@ public class Sale {
     public double getItemDiscountAmount() {
         return itemDiscountAmount;
     }
-    
+
     /**
      * Returns the total discount amount after all discounts applied.
      * 
@@ -162,12 +163,11 @@ public class Sale {
     public double getTotalDiscountAmount() {
         return totalPrice * discountRate;
     }
-    
-    
+
     /**
      * Finalize payment to generate receipt.
      * 
-     * @param amountPaid the amount paid by the customer. 
+     * @param amountPaid the amount paid by the customer.
      * @return a Printer instance.
      */
     public Printer pay(double amountPaid) {
