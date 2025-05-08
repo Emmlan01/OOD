@@ -1,8 +1,14 @@
 {
-    "java.project.sourcePaths": ["src"],
+    "java.project.sourcePaths": [
+        "seminar4",
+        "seminar3",
+        "sem3/src/se/kth/iv1350/sem3/main",
+        "OOD"
+    ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
     ],
-"prettier.enable": true
+"prettier.enable": true,
+"java.debug.settings.onBuildFailureProceed": true
 }
