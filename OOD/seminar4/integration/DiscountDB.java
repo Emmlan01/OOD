@@ -8,12 +8,21 @@ import java.util.List;
 import seminar4.model.SaleItems;
 
 public class DiscountDB {
+   private static final DiscountDB INSTANCE = new DiscountDB();
     /*
      * Creates a new instance.
      */
-    public DiscountDB() {
+    private DiscountDB() {
     }
- 
+
+    /**
+     * 
+     * @return the only existing instance
+     */
+    public static DiscountDB getInstance(){
+     return INSTANCE;
+    }
+
     /**
      * Checks if a discount is available for a given customer.
      * 
@@ -26,7 +35,7 @@ public class DiscountDB {
        else
           return false;
     }
- 
+
     /**
      * Personal discount for a customer.
      * 
@@ -40,7 +49,7 @@ public class DiscountDB {
           return 0.0;
        }
     }
- 
+
     /**
      * The item specific discount for a customer based on the items in the sale.
      * 
@@ -52,7 +61,7 @@ public class DiscountDB {
        double itemDiscount = 0.0;
        if (!checkDiscount(customerId))
           return 0.0;
- 
+
        for (SaleItems item : items) {
           if (item.getItem().itemId() == 2) {
              itemDiscount += 5.0;
@@ -60,7 +69,7 @@ public class DiscountDB {
        }
        return itemDiscount;
     }
- 
+
     /**
      * The discount based of the total cost of the sale.
      * 
@@ -68,14 +77,14 @@ public class DiscountDB {
      * @param customerId The ID of the customer.
      * @return The discount rate. (0.05 = 5%)
      */
- 
+
     public double getTotalCostDiscount(double total, int customerId) {
        if (checkDiscount(customerId) && total > 100) {
           return 0.05;
        }
        return 0.0;
     }
- 
+
     /**
      * Combines all discounts into a total amount to subtract from the sale.
      * 
@@ -88,10 +97,9 @@ public class DiscountDB {
        double customerDiscountRate = getDiscountForCustomer(customerId);
        double totalCostDiscountRate = getTotalCostDiscount(totalPrice, customerId);
        double itemDiscount = getItemDiscount(items, customerId);
- 
+
        double percentDiscount = totalPrice * (customerDiscountRate + totalCostDiscountRate);
        return percentDiscount + itemDiscount;
     }
- 
+
  }
- 

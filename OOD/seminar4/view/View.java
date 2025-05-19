@@ -4,8 +4,11 @@ package seminar4.view;
  * This is a placeholder for the real view, and represents the view of the program.
  */
 import seminar4.model.SaleDTO;
+import seminar4.utils.TotalRevenueFileOutput;
 import seminar4.controller.Controller;
+import seminar4.integration.DatabaseFailureException;
 import seminar4.integration.ItemDTO;
+import seminar4.integration.ItemNotFoundException;
 
  public class View {
     private Controller contr;
@@ -18,6 +21,9 @@ import seminar4.integration.ItemDTO;
      */
     public View(Controller contr) {
         this.contr = contr;
+        contr.addRevenueObserver(new TotalRevenueView());
+        contr.addRevenueObserver(new TotalRevenueFileOutput());
+
     }
 
     /*
@@ -35,6 +41,7 @@ import seminar4.integration.ItemDTO;
      * @param quantity The number of quantity of the item.
      */
     public void addItem(Integer itemId, int quantity) {
+        try{
         SaleDTO saleInfo = contr.addItem(itemId, quantity);
         if (saleInfo != null) {
             ItemDTO item = saleInfo.lastAddedItem();
@@ -49,19 +56,30 @@ import seminar4.integration.ItemDTO;
             System.out.println("Total VAT: " + String.format("%.2f", saleInfo.totalVAT()) + " SEK");
             System.out.println();
             System.out.println("End sale:");
-            System.out.println("Total cost (incl VAT): " + String.format("%.2f", saleInfo.totalPrice()) + " SEK");
+            System.out.println("Total cost (incl VAT): " + String.format("%.2f", saleInfo.totalPrice()) + " SEK \n");
         }
-        if (saleInfo == null) {
-            System.out.println("Identifier is invalid");
-        }
+    }catch (ItemNotFoundException e){
+        System.out.println("Error: " + e.getMessage());
+        logError(e);
+    } catch (DatabaseFailureException e){
+        System.out.println("Error: " + e.getMessage());
+        logError(e);
+    }
+    }
 
+    /**
+     * Logs the expection's message to a file.
+     * @param e The exception to be logged.
+     */
+    private void logError(Exception e){
+        FileLogger logger = new FileLogger("error.txt");
+        logger.log("logging error:" + e.getMessage());
     }
 
     /**
      * Calling the controller to possible apply discount for a specific customer.
      * 
-     * @param customerId The Id of the customer for who the discount can be applied
-     *                   to.
+     * @param customerId The Id of the customer for who the discount can be applied to.
      */
     public void applyDiscount(int customerId) {
         contr.applyDiscount(customerId);
@@ -84,4 +102,3 @@ import seminar4.integration.ItemDTO;
     }
 
 }
-

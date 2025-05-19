@@ -20,14 +20,14 @@ public class Main {
     public static void main(String[] args) {
         ExternalAccountingSystem externalAccountingSystem = new ExternalAccountingSystem();
         ExternalInventorySystem externalInventorySystem = new ExternalInventorySystem();
-        DiscountDB discountDB = new DiscountDB();
+        DiscountDB discountDB = DiscountDB.getInstance();
         Controller contr = new Controller(externalInventorySystem, externalAccountingSystem, discountDB);
         View view = new View(contr);
         view.startNewSale();
-        view.addItem(1, 1);
-        view.addItem(2, 2);
-        view.applyDiscount(1);
+        view.addItem(100, 1);
+        view.addItem(8, 2);
+    //    view.applyDiscount(1);
         view.endSale();
-        view.pay(1000);
+        view.pay(900);
     }
 }

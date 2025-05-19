@@ -1,0 +1,10 @@
+-------------------------------------------
+logging error:Database cannot be reached
+Error occured at: 2025-05-19 14:39:34.843
+-------------------------------------------
+
+-------------------------------------------
+logging error:Item of id 8 cannot be found in the inventory
+Error occured at: 2025-05-19 14:39:34.846
+-------------------------------------------
+
