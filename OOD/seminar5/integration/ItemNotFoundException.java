@@ -1,4 +1,5 @@
-package seminar4.integration;
+package seminar5.integration;
+
 
 /**
  * Thrown when trying to add item which is not in inventory.

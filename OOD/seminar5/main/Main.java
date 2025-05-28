@@ -1,11 +1,10 @@
-package seminar4.main;
+package seminar5.main;
 
-
-import seminar4.controller.Controller;
-import seminar4.integration.DiscountDB;
-import seminar4.integration.ExternalAccountingSystem;
-import seminar4.integration.ExternalInventorySystem;
-import seminar4.view.View;
+import seminar5.controller.Controller;
+import seminar5.integration.DiscountDB;
+import seminar5.integration.ExternalAccountingSystem;
+import seminar5.integration.ExternalInventorySystem;
+import seminar5.view.View;
 
 /*
  * Starts the entire application, contains the main method used to start the application.
@@ -24,10 +23,10 @@ public class Main {
         Controller contr = new Controller(externalInventorySystem, externalAccountingSystem, discountDB);
         View view = new View(contr);
         view.startNewSale();
-        view.addItem(1, 1);
-        view.addItem(2, 2);
+        view.addItem(1, 2);
+      //  view.addItem(2, 2);
         view.applyDiscount(1);
         view.endSale();
-        view.pay(1000);
+        view.pay(4000);
     }
 }

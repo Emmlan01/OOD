@@ -1,12 +1,19 @@
-package seminar3.model;
+package seminar5.model;
+
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import seminar3.integration.DiscountDB;
-import seminar3.integration.ItemDTO;
-import seminar3.integration.Printer;
+import seminar5.integration.DiscountDB;
+import seminar5.integration.ItemDTO;
+import seminar5.integration.Printer;
+import seminar5.utils.TotalRevenueObserver;
+import seminar5.utils.CustomerDiscountStrategy;
+import seminar5.utils.DiscountStrategy;
+import seminar5.utils.ItemDiscountStrategy;
+import seminar5.utils.TotalCostDiscountStrategy;
+
 /*
  * Represents the on going sale, including all purchased items
  * total cost, VAT, discounts, and payment handling.
@@ -17,10 +24,11 @@ public class Sale {
     private LocalDateTime saleTime;
     private double totalPrice;
     private double totalVAT;
-    private double discountRate;
+    public double discountRate;
     private double customerDiscountRate;
     private double totalCostDiscountRate;
     private double itemDiscountAmount;
+    private List<TotalRevenueObserver> saleObservers;
 
     /*
      * Creates a new instance, with current timestamp and emty item list.
@@ -29,11 +37,12 @@ public class Sale {
         this.saleTime = LocalDateTime.now();
         this.totalPrice = 0.0;
         this.totalVAT = 0.0;
-        this.saleItems = new ArrayList<SaleItems>();
+        this.saleItems = new ArrayList<>();
         this.customerDiscountRate = 0.0;
         this.discountRate = 0.0;
         this.totalCostDiscountRate = 0.0;
         this.itemDiscountAmount = 0.0;
+        this.saleObservers = new ArrayList<>();
     }
 
     /**
@@ -54,25 +63,8 @@ public class Sale {
 
         lastAddedItem = item;
         updateTotals();
-        return toDTO();
+        return new SaleDTO(lastAddedItem, totalPrice, totalVAT);
     }
-
-    /**
-     * 
-     * @return
-     */
-    public SaleDTO toDTO() {
-   return new SaleDTO(
-        lastAddedItem,
-        new ArrayList<SaleItems>(saleItems),
-        getTotalPrice(),
-        getTotalVAT(),
-        getCustomerDiscountRate(),
-        getTotalCostDiscountRate(),
-        getItemDiscountAmount(),
-        getTotalDiscountAmount()
-    );
-}
 
     /**
      * Searches for an existing item with the given item ID.
@@ -134,13 +126,15 @@ public class Sale {
      * @param discountDB the discount database.
      */
     public void applyDiscount(int customerId, DiscountDB discountDB) {
-        customerDiscountRate = discountDB.getDiscountForCustomer(customerId);
-        totalCostDiscountRate = discountDB.getTotalCostDiscount(totalPrice, customerId);
-        itemDiscountAmount = discountDB.getItemDiscount(saleItems, customerId);
+        DiscountStrategy customerDiscount = new CustomerDiscountStrategy(customerId);
+        DiscountStrategy totalCostDiscount = new TotalCostDiscountStrategy(customerId);
+        DiscountStrategy itemDiscount = new ItemDiscountStrategy(customerId);
 
-        double totalPercent = customerDiscountRate + totalCostDiscountRate;
+        double totalPercent = customerDiscount.getDiscount(totalPrice, saleItems, discountDB)
+                + totalCostDiscount.getDiscount(totalPrice, saleItems, discountDB);
         double percentDiscount = totalPrice * totalPercent;
-        double totalDiscount = percentDiscount + itemDiscountAmount;
+        double totalDiscount = percentDiscount + itemDiscount.getDiscount(totalPrice, saleItems, discountDB);
+
         discountRate = totalDiscount / totalPrice;
     }
 
@@ -181,13 +175,33 @@ public class Sale {
     }
 
     /**
-     * Finalize payment to generate receipt.
+     * Adds the list of obsververs to the sale.
+     * 
+     * @param observer The list of TotalRevenueObserver that should be added to the
+     *                 sale.
+     */
+    public void addObservers(List<TotalRevenueObserver> observers) {
+        saleObservers.addAll(observers);
+    }
+
+    /**
+     * Notifies all observers about the updated total revenue.
+     */
+    private void notifyObservers() {
+        for (TotalRevenueObserver obs : saleObservers) {
+            obs.calculateTotalRevenue(totalPrice);
+        }
+    }
+
+    /**
+     * Finalize payment to generate receipt and notifying all observers.
      * 
      * @param amountPaid the amount paid by the customer.
      * @return a Printer instance.
      */
     public Printer pay(double amountPaid) {
-        return new Printer( this.toDTO(), amountPaid, saleTime);
+        notifyObservers();
+        return new Printer(this, amountPaid, saleTime);
     }
 
     /**

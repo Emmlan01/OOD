@@ -1,6 +1,6 @@
-package seminar3.model;
+package seminar5.model;
 
-import seminar3.integration.ItemDTO;
+import seminar5.integration.ItemDTO;
 
 /*
  * Represents the item and the quantity of it, to caluclate
@@ -49,7 +49,7 @@ public class SaleItems {
      * @return the VAT amount for the item.
      */
     public double getVATAmount() {
-        return item.VAT() * quantity;
+        return getSubTotal() * item.VAT() / 100.0;
     }
 
     /**

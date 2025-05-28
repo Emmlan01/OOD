@@ -1,18 +1,15 @@
-package seminar4.integration;
-/*
- * Represent a discount database for the different discounts.
- */
+package seminar5.integration;
 
 import java.util.List;
 
-import seminar4.model.SaleItems;
+import seminar5.model.SaleItems;
 
 public class DiscountDB {
    private static final DiscountDB INSTANCE = new DiscountDB();
     /*
      * Creates a new instance.
      */
-    private DiscountDB() {
+    public DiscountDB() {
     }
 
     /**

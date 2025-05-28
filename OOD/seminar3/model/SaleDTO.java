@@ -1,5 +1,7 @@
 package seminar3.model;
 
+import java.util.List;
+
 import seminar3.integration.ItemDTO;
 
 /*
@@ -7,7 +9,12 @@ import seminar3.integration.ItemDTO;
  * constructors and getter methods are implicit. Records are immutable.
  */
 public record SaleDTO(
-        ItemDTO lastAddedItem,
-        double totalPrice,
-        double totalVAT) {
-}
+    ItemDTO lastAddedItem,
+    List<SaleItems> saleItems,
+    double totalPrice,
+    double totalVAT,
+    double customerDiscountRate,
+    double totalCostDiscountRate,
+    double itemDiscountAmount,
+    double totalDiscountAmount
+) {}
