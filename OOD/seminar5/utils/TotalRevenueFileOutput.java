@@ -27,7 +27,7 @@ public abstract class TotalRevenueFileOutput implements TotalRevenueObserver {
 /**
  * Calls the abstract method to display the total revenue and handle exception.
  */
-  public void showTotalRevenue(){
+  private void showTotalRevenue(){
     try{
         doShowTotalRevenue(total);
     } catch (Exception e){

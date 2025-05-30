@@ -46,7 +46,7 @@ public class PrinterTest {
         printer.printReceipt();
         String output = outContent.toString();
 
-        assertTrue(output.contains("Begin receipt"));
+        assertTrue(output.contains("------------------- Begin receipt -------------------"));
         assertTrue(output.contains("Time of Sale: 2025-05-28 17:30"));
         assertTrue(output.contains("Apple"));
         assertTrue(output.contains("2 x 100.00"));
@@ -55,6 +55,6 @@ public class PrinterTest {
         assertTrue(output.contains("VAT: 40.00 SEK"));
         assertTrue(output.contains("Cash: 300.00 SEK"));
         assertTrue(output.contains("Change: 100.00 SEK"));
-        assertTrue(output.contains("End receipt"));
+        assertTrue(output.contains("------------------- End receipt --------------------"));
     }
 }

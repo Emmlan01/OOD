@@ -1,8 +1,7 @@
 package seminar5.tests;
-import org.junit.jupiter.api.*;
 
-import seminar5.integration.ExternalAccountingSystem;
-import seminar5.model.Sale;
+import org.junit.jupiter.api.*;
+import seminar5.view.FileLogger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +13,7 @@ import java.io.PrintStream;
 import org.junit.Before;
 
 
-public class ExternalAccountingSystemTest {
+public class FileLoggerTest {
     private ByteArrayOutputStream  outContent;
     private PrintStream originalSysOut;
 
@@ -30,15 +29,10 @@ public class ExternalAccountingSystemTest {
         System.setOut(originalSysOut);
          outContent = null;
     }
+
     @Test
-    public void testUpdateSaleInformationPrintsConfirmation() {
-        ExternalAccountingSystem accountingSystem = new ExternalAccountingSystem();
-        Sale sale = new Sale();
-
-        accountingSystem.updateSaleInformation(sale);
-
-        String output = outContent.toString();
-        assertTrue(output.contains("Sale information to external accounting system"),
-            "Expected output was not found in System.out");
+    public void testConstructorFailurePrintsToConsole() {
+        new FileLogger("/invalid/file.txt"); 
+        assertTrue(outContent.toString().contains("File logger could not be initiated"));
     }
 }

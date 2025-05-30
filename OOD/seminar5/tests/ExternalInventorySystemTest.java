@@ -79,6 +79,6 @@ public class ExternalInventorySystemTest {
 
         String output = outContent.toString();
         assertTrue(output.contains("Sale information to external inventory system"),
-            "The confirmation message should be printed to System.out.");
+            "Expected output was not found in System.out");
     }
 }
