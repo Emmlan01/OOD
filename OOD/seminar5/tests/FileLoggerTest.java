@@ -31,7 +31,7 @@ public class FileLoggerTest {
     }
 
     @Test
-    public void testConstructorFailurePrintsToConsole() {
+    public void testFailurePrintsToConsole() {
         new FileLogger("/invalid/file.txt"); 
         assertTrue(outContent.toString().contains("File logger could not be initiated"));
     }

@@ -30,7 +30,7 @@ public class TotalRevenueViewTest {
          outContent = null;
     }
 
-   private static class TotalRevenueView extends seminar5.view.TotalRevenueView {
+   private class TotalRevenueView extends seminar5.view.TotalRevenueView {
         public void callDoShowTotalRevenue(double total) throws IOException {
             doShowTotalRevenue(total);
         }

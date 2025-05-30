@@ -58,9 +58,9 @@ public class ViewTest {
         String result = outContent.toString();
         assertTrue(result.contains("Add " + quantity + " item with item id " + itemId + " :"), "Expected output was not found in System.out");
         assertTrue(result.contains("Item ID : " + itemId), "Expected output was not found in System.out");
-         assertTrue(result.contains("Item name : " + description), "Expected output was not found in System.out");
+        assertTrue(result.contains("Item name : " + description), "Expected output was not found in System.out");
         assertTrue(result.contains("Item cost : " + price + " SEK"), "Expected output was not found in System.out");
-         assertTrue(result.contains("VAT : " + vat + "%"), "Expected output was not found in System.out");
+        assertTrue(result.contains("VAT : " + vat + "%"), "Expected output was not found in System.out");
         assertTrue(result.contains("Item description : " + description), "Expected output was not found in System.out");
         assertTrue(result.contains("Total cost (incl VAT): " + String.format("%.2f", totalPrice) + " SEK"), "Expected output was not found in System.out");
         assertTrue(result.contains("Total VAT: " + String.format("%.2f", totalvat) + " SEK"), "Expected output was not found in System.out");

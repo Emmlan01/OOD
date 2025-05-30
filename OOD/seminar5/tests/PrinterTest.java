@@ -46,15 +46,15 @@ public class PrinterTest {
         printer.printReceipt();
         String output = outContent.toString();
 
-        assertTrue(output.contains("------------------- Begin receipt -------------------"));
-        assertTrue(output.contains("Time of Sale: 2025-05-28 17:30"));
-        assertTrue(output.contains("Apple"));
-        assertTrue(output.contains("2 x 100.00"));
-        assertTrue(output.contains("200.00 SEK")); 
-        assertTrue(output.contains("Total: 200.00 SEK")); 
-        assertTrue(output.contains("VAT: 40.00 SEK"));
-        assertTrue(output.contains("Cash: 300.00 SEK"));
-        assertTrue(output.contains("Change: 100.00 SEK"));
-        assertTrue(output.contains("------------------- End receipt --------------------"));
+        assertTrue(output.contains("------------------- Begin receipt -------------------"), "Expected output was not found in System.out");
+        assertTrue(output.contains("Time of Sale: 2025-05-28 17:30"), "Expected output was not found in System.out");
+        assertTrue(output.contains("Apple"), "Expected output was not found in System.out");
+        assertTrue(output.contains("2 x 100.00"), "Expected output was not found in System.out");
+        assertTrue(output.contains("200.00 SEK"), "Expected output was not found in System.out"); 
+        assertTrue(output.contains("Total: 200.00 SEK"), "Expected output was not found in System.out"); 
+        assertTrue(output.contains("VAT: 40.00 SEK"), "Expected output was not found in System.out");
+        assertTrue(output.contains("Cash: 300.00 SEK"), "Expected output was not found in System.out");
+        assertTrue(output.contains("Change: 100.00 SEK"), "Expected output was not found in System.out");
+        assertTrue(output.contains("------------------- End receipt --------------------"), "Expected output was not found in System.out");
     }
 }
